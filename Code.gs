@@ -31,12 +31,12 @@ function generateDownloadUrls() {
   // get indices for needed columns
   const normalizedHeader = normalizeHeaders(values[0]);
   const fileNameIndex = normalizedHeader.indexOf('fileName');
-  const currentLinkIndex = normalizedHeader.indexOf('currentLink');
-  const linkToPdfIndex = normalizedHeader.indexOf('linkToPdf') + 1;
+  const currentLinkIndex = normalizedHeader.indexOf('linkToPublication');
+  const linkToPdfIndex = normalizedHeader.indexOf('websiteLink') + 1;
 
   // iterate through spreadsheet and replace urls
-  // if fileName is blank, linkToPdf = currentLink
-  // if linkToPdf is blank, linkToPfd = ''
+  // if fileName is blank, websiteLink = linkToPublication
+  // if linkToPublication is blank, websiteLink = ''
   for (var i = 0; i < values.length; i++) {
     if (i !== 0) {
       var currentCell = range.getCell(i + 1, linkToPdfIndex);
