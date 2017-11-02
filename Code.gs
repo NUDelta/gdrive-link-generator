@@ -10,7 +10,7 @@ function onOpen() {
     {name: 'Generate Paper URLs', functionName: 'generateDownloadUrls'}
   ];
   ss.addMenu('Website URL Generator', menuEntries);
-};
+}
 
 /*
  * Generates URLs and replaces existing data in spreadsheet with new URLs
@@ -21,7 +21,6 @@ function generateDownloadUrls() {
 
   // create object with files and urls
   var urlObject = createUrlObject(fileList);
-  Logger.log(urlObject);
 
   // get data from existing sheet
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -35,11 +34,6 @@ function generateDownloadUrls() {
   const currentLinkIndex = normalizedHeader.indexOf('currentLink');
   const linkToPdfIndex = normalizedHeader.indexOf('linkToPdf') + 1;
 
-  Logger.log(normalizedHeader);
-  Logger.log(fileNameIndex);
-  Logger.log(currentLinkIndex);
-  Logger.log(linkToPdfIndex);
-
   // iterate through spreadsheet and replace urls
   // if fileName is blank, linkToPdf = currentLink
   // if linkToPdf is blank, linkToPfd = ''
@@ -49,16 +43,12 @@ function generateDownloadUrls() {
       var currentRow = values[i];
       var fileName = currentRow[fileNameIndex];
 
-      Logger.log(i);
-      Logger.log(currentRow);
-      Logger.log(fileName);
-
       // set to google drive link or existing link (if blank, keep blank)
       if (fileName !== '' && urlObject.hasOwnProperty(fileName)) {
-        currentCell.setValue(urlObject[fileName]['downloadLink']);
+        currentCell.setValue(urlObject[fileName].downloadLink);
       } else {
         currentCell.setValue(currentRow[currentLinkIndex]);
       }
     }
   }
-};
+}
